@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag and Drop</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="boxes">
+            <div id="left">
+                <div class="list" draggable="true"><img src="icon.png">List Item 1</div>
+                <div class="list" draggable="true"><img src="icon.png">List Item 2</div>
+                <div class="list" draggable="true"><img src="icon.png">List Item 3</div>
+                <div class="list" draggable="true"><img src="icon.png">List Item 4</div>
+            </div>
+            <div id="right"></div>
+        </div>
+        <button id="btn">Reset</button>
+    </div>
+    <script>
+        let lists = document.getElementsByClassName("list");
+        let rightBox = document.getElementById("right");
+        let leftBox = document.getElementById("left");
+        let button = document.getElementById("btn")
+        for (list of lists) {
+            list.addEventListener("dragstart", function (e) {
+                let selected = e.target;
+                rightBox.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                rightBox.addEventListener("drop", function (e) {
+                    selected.style.backgroundColor = "green"
+                    rightBox.appendChild(selected);
+                    alert(`${selected.innerText} droped in Right Container`)
+                    selected = null;
+                });
+
+                leftBox.addEventListener("dragover", function (e) {
+                    e.preventDefault();
+                });
+                leftBox.addEventListener("drop", function (e) {
+                    selected.style.backgroundColor = "#e91e63"
+                    leftBox.appendChild(selected);
+                    alert(`${selected.innerText} droped in Left Container`)
+                    selected = null;
+                });
+            });
+        }
+        button.addEventListener("click", function(e){
+            document.location.reload()
+        })
+    </script>
+</body>
+
+</html>
